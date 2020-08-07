@@ -1,0 +1,28 @@
+version: "3.7"
+
+networks:
+    shares:
+        driver: bridge
+
+services:
+    users:
+        build:
+            context: .
+            dockerfile: ./Shares.Users/Dockerfile
+        ports:
+            - "5501:5501"
+        environment:
+            - "PORT=5501"
+        networks:
+            - shares
+
+    api:
+        build:
+            context: .
+            dockerfile: ./Shares.Web/Dockerfile
+        ports:
+            - "5502:80"
+        depends_on:
+            - users
+        networks:
+            - shares
