@@ -1,0 +1,64 @@
+﻿syntax = "proto3";
+
+package Shares.Core.Services;
+
+service UserService {
+	rpc Get (GetUserRequest) returns (GetUserResponse) {}
+	rpc List (GetUsersRequest) returns (GetUsersResponse) {}
+	rpc Create (CreateUserRequest) returns (CreateUserResponse) {}
+	rpc Update (UpdateUserRequest) returns (UpdateUserResponse) {}
+	rpc ChangePassword (ChangePasswordRequest) returns (ChangePasswordResponse) {}
+}
+
+message CreateUserRequest {
+	string firstname = 1;
+	string lastname = 2;
+	string email = 3;
+	string password = 4;
+}
+
+message CreateUserResponse {
+	string id = 1;
+	string error = 2;
+}
+
+message UpdateUserRequest {
+	string id = 1;
+	string firstname = 2;
+	string lastname = 3;
+	string email = 4;
+}
+
+message UpdateUserResponse {
+	string error = 1;
+}
+
+message GetUserRequest {
+	string id = 1;
+}
+
+message GetUserResponse {
+	string id = 1;
+	string firstname = 2;
+	string lastname = 3;
+	string email = 4;
+	string error = 5;
+}
+
+message GetUsersRequest {
+}
+
+message GetUsersResponse {
+	string error = 1;
+	repeated GetUserResponse users = 2;
+}
+
+message ChangePasswordRequest {
+	string id = 1;
+	string currentPassword = 2;
+	string newPassword = 3;
+}
+
+message ChangePasswordResponse {
+	string error = 1;
+}
