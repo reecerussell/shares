@@ -1,0 +1,8 @@
+.vs
+*.user
+Shares.Core/bin
+Shares.Core/obj
+Shares.Users/bin
+Shares.Users/obj
+Shares.Web/bin
+Shares.Web/obj
