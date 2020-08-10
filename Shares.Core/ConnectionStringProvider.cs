@@ -12,7 +12,12 @@ namespace Shares.Core
             _configuration = configuration;
         }
 
-        public async Task<string> Get()
+        public string Get()
+        {
+            return _configuration["ConnectionStrings:DefaultConnection"];
+        }
+
+        public async Task<string> GetAsync()
         {
             return _configuration["ConnectionStrings:DefaultConnection"];
         }

@@ -1,7 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using Shares.Core;
 using Shares.Core.Dtos;
-using Shares.Users.Services;
 using Shares.Users.ValueObjects;
 using System;
 using System.Text.RegularExpressions;

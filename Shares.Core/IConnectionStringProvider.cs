@@ -4,6 +4,7 @@ namespace Shares.Core
 {
     public interface IConnectionStringProvider
     {
-        Task<string> Get();
+        string Get();
+        Task<string> GetAsync();
     }
 }

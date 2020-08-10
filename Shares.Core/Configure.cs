@@ -8,7 +8,8 @@ namespace Shares.Core
         {
             return services
                 .AddTransient<INormalizer, Normalizer>()
-                .AddScoped<IConnectionStringProvider, ConnectionStringProvider>();
+                .AddScoped<IConnectionStringProvider, ConnectionStringProvider>()
+                .AddScoped<IPasswordService, PasswordService>();
         }
     }
 }

@@ -1,0 +1,25 @@
+<h1>
+  Users
+  <a role="button" href="#" mdbBtn color="primary" mdbWavesEffect>New User</a>
+</h1>
+
+<hr />
+
+<table mdbTable striped="true">
+  <thead class="black white-text">
+    <tr>
+      <th scope="col">Firstname</th>
+      <th scope="col">Lastname</th>
+      <th scope="col">Email</th>
+      <th scope="col">View</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr mdbTableCol *ngFor="let el of elements">
+      <th scope="row">{{ el.id }}</th>
+      <td>{{ el.first }}</td>
+      <td>{{ el.last }}</td>
+      <td>{{ el.handle }}</td>
+    </tr>
+  </tbody>
+</table>

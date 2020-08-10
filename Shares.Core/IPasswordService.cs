@@ -1,6 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 
-namespace Shares.Users.Services
+namespace Shares.Core
 {
     public interface IPasswordService
     {

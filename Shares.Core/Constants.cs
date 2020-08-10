@@ -1,4 +1,4 @@
-﻿namespace Shares.Users
+﻿namespace Shares.Core
 {
     public class Constants
     {

@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Shares.Users.Services
+namespace Shares.Core
 {
-    internal class PasswordService : IPasswordService
+    public class PasswordService : IPasswordService
     {
         private const byte FormatMarker = 0x01;
         private const KeyDerivationPrf Algorithm = KeyDerivationPrf.HMACSHA256;
