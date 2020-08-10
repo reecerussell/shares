@@ -16,7 +16,6 @@ namespace Shares.Core.Password
         private const byte FormatMarker = 0x01;
         private const KeyDerivationPrf Algorithm = KeyDerivationPrf.HMACSHA256;
         private readonly RandomNumberGenerator _rng;
-        private readonly Encoding _encoding;
         private readonly IConfiguration _configuration;
 
         private readonly int _iterationCount;
@@ -44,7 +43,6 @@ namespace Shares.Core.Password
             }
             
             _rng = new RNGCryptoServiceProvider();
-            _encoding = Encoding.UTF8;
             _configuration = configuration;
             _iterationCount = iterationCount;
             _keySize = keySize / 8;
