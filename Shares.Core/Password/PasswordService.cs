@@ -53,6 +53,11 @@ namespace Shares.Core.Password
 
         public string Hash(string pwd)
         {
+            if (string.IsNullOrEmpty(pwd))
+            {
+                throw new ArgumentNullException(nameof(pwd));
+            }
+
             var salt = new byte[_saltSize];
             _rng.GetBytes(salt);
             var subKey = KeyDerivation.Pbkdf2(pwd, salt, Algorithm, _iterationCount, _keySize);
@@ -67,23 +72,33 @@ namespace Shares.Core.Password
             Buffer.BlockCopy(salt, 0, output, 13, salt.Length);
             Buffer.BlockCopy(subKey, 0, output, 13+salt.Length, subKey.Length);
 
-            return _encoding.GetString(output);
+            return Convert.ToBase64String(output);
 
-            void WriteHeader(byte[] buf, int offset, uint value)
+            static void WriteHeader(byte[] buf, int offset, uint value)
             {
                 buf[offset + 0] = (byte)(value >> 24);
                 buf[offset + 1] = (byte)(value >> 16);
                 buf[offset + 2] = (byte)(value >> 8);
-                buf[offset + 4] = (byte)value;
+                buf[offset + 3] = (byte)(value >> 0);
             }
         }
 
-        public bool Verify(string pwd, string hash)
+        public bool Verify(string pwd, string base64Hash)
         {
+            if (string.IsNullOrEmpty(pwd))
+            {
+                throw new ArgumentNullException(nameof(pwd));
+            }
+
+            if (string.IsNullOrEmpty(base64Hash))
+            {
+                throw new ArgumentNullException(nameof(base64Hash));
+            }
+
             try
             {
-                var rawHash = _encoding.GetBytes(hash);
-                if (rawHash[0] == FormatMarker)
+                var rawHash = Convert.FromBase64String(base64Hash);
+                if (rawHash[0] != FormatMarker)
                 {
                     return false;
                 }
@@ -125,7 +140,10 @@ namespace Shares.Core.Password
 
                 for (var i = 1; i < 13; i+= 4)
                 {
-                    var v = buf[i] << 24 | buf[i + 1] << 16 | buf[i + 2] << 8 | buf[i + 3];
+                    var v = (((uint)buf[i]) << 24) | 
+                            ((uint)(buf[i + 1]) << 16) |
+                            (((uint)buf[i + 2]) << 8) | 
+                            ((uint)buf[i + 3]);
 
                     switch (i)
                     {
@@ -133,10 +151,10 @@ namespace Shares.Core.Password
                             alg = (KeyDerivationPrf) v;
                             break;
                         case 5:
-                            iterationCount = v;
+                            iterationCount = (int)v;
                             break;
                         case 9:
-                            saltSize = v;
+                            saltSize = (int)v;
                             break;
                     }
                 }
