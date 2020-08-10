@@ -55,30 +55,30 @@ namespace Shares.Users.Models
                 .Bind(() => UpdateEmail(dto.Email, normalizer));
         }
 
-        private Result SetPassword(string password, IPasswordService service)
+        private Result SetPassword(string password, IPasswordService service, IPasswordValidator validator)
         {
-            return service.Validate(password)
+            return validator.Validate(password)
                 .Tap(() => PasswordHash = service.Hash(password));
         }
 
-        internal Result UpdatePassword(ChangePasswordDto dto, IPasswordService service)
+        internal Result UpdatePassword(ChangePasswordDto dto, IPasswordService service, IPasswordValidator validator)
         {
             if (!service.Verify(dto.CurrentPassword, PasswordHash))
             {
                 return Result.Failure("Current password is not valid.");
             }
 
-            return service.Validate(dto.NewPassword)
+            return validator.Validate(dto.NewPassword)
                 .Tap(() => PasswordHash = service.Hash(dto.NewPassword));
         }
 
-        internal static Result<User> Create(CreateUserDto dto, INormalizer normalizer, IPasswordService passwordService)
+        internal static Result<User> Create(CreateUserDto dto, INormalizer normalizer, IPasswordService passwordService, IPasswordValidator validator)
         {
             User user = null;
             return UserFullname.Create(dto.Firstname, dto.Lastname)
                 .Tap(n => user = new User(n))
                 .Bind(_ => user.UpdateEmail(dto.Email, normalizer))
-                .Bind(() => user.SetPassword(dto.Password, passwordService))
+                .Bind(() => user.SetPassword(dto.Password, passwordService, validator))
                 .Map(() => user);
         }
     }

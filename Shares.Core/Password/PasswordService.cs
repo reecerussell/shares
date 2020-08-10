@@ -1,12 +1,9 @@
-﻿using CSharpFunctionalExtensions;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+﻿using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.Extensions.Configuration;
 using Shares.Core.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
-using System.Text;
 
 [assembly: InternalsVisibleTo("Core.Tests")]
 namespace Shares.Core.Password
@@ -16,7 +13,6 @@ namespace Shares.Core.Password
         private const byte FormatMarker = 0x01;
         private const KeyDerivationPrf Algorithm = KeyDerivationPrf.HMACSHA256;
         private readonly RandomNumberGenerator _rng;
-        private readonly IConfiguration _configuration;
 
         private readonly int _iterationCount;
         private readonly int _keySize;
@@ -43,7 +39,6 @@ namespace Shares.Core.Password
             }
             
             _rng = new RNGCryptoServiceProvider();
-            _configuration = configuration;
             _iterationCount = iterationCount;
             _keySize = keySize / 8;
             _saltSize = saltSize / 8;
@@ -159,87 +154,6 @@ namespace Shares.Core.Password
 
                 return (alg, iterationCount, saltSize);
             }
-        }
-
-        public Result Validate(string password)
-        {
-            if (string.IsNullOrEmpty(password))
-            {
-                return Result.Failure("Password cannot be empty.");
-            }
-
-            var requiredLength = _configuration.GetNullInt(Constants.PasswordRequiredLengthKey);
-            if (requiredLength != null && password.Length < requiredLength)
-            {
-                return Result.Failure($"Password must be at least {requiredLength} characters long.");
-            }
-
-            var hasNonAlphanumeric = false;
-            var hasDigit = false;
-            var hasLower = false;
-            var hasUpper = false;
-            var uniqueChars = new List<char>();
-
-            foreach (var c in password)
-            {
-                if (!hasNonAlphanumeric && !IsLetterOrDigit(c))
-                {
-                    hasNonAlphanumeric = true;
-                }
-
-                if (!hasDigit && IsDigit(c))
-                {
-                    hasDigit = true;
-                }
-
-                if (!hasLower && IsLower(c))
-                {
-                    hasLower = true;
-                }
-
-                if (!hasUpper && IsUpper(c))
-                {
-                    hasUpper = true;
-                }
-
-                if (!uniqueChars.Contains(c))
-                {
-                    uniqueChars.Add(c);
-                }
-            }
-
-            if (_configuration.GetBool(Constants.PasswordRequireNonAlphanumericKey) && !hasNonAlphanumeric)
-            {
-                return Result.Failure("Password requires an non-alphanumeric character.");
-            }
-
-            if (_configuration.GetBool(Constants.PasswordRequireDigitKey) && !hasDigit)
-            {
-                return Result.Failure("Password requires a number.");
-            }
-
-            if (_configuration.GetBool(Constants.PasswordRequireLowercaseKey) && !hasLower)
-            {
-                return Result.Failure("Password requires a lowercase character.");
-            }
-
-            if (_configuration.GetBool(Constants.PasswordRequireUppercaseKey) && !hasUpper)
-            {
-                return Result.Failure("Password requires an uppercase character.");
-            }
-
-            var requiredUniqueChars = _configuration.GetNullInt(Constants.PasswordRequiredUniqueCharsKey);
-            if (requiredUniqueChars != null && requiredUniqueChars > 0 && uniqueChars.Count < requiredUniqueChars)
-            {
-                return Result.Failure($"Password requires at least");
-            }
-
-            return Result.Success();
-
-            static bool IsDigit(char c) => c >= '0' && c <= '9';
-            static bool IsLower(char c) => c >= 'a' && c <= 'z';
-            static bool IsUpper(char c) => c >= 'A' && c <= 'Z';
-            static bool IsLetterOrDigit(char c) => IsDigit(c) || IsLower(c) || IsUpper(c);
         }
     }
 }

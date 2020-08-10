@@ -6,6 +6,5 @@ namespace Shares.Core
     {
         string Hash(string pwd);
         bool Verify(string pwd, string hash);
-        Result Validate(string pwd);
     }
 }
