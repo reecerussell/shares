@@ -4,12 +4,14 @@ using Microsoft.Extensions.Configuration;
 using Shares.Core.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Shares.Core
+[assembly: InternalsVisibleTo("Core.Tests")]
+namespace Shares.Core.Password
 {
-    public class PasswordService : IPasswordService
+    internal class PasswordService : IPasswordService
     {
         private const byte FormatMarker = 0x01;
         private const KeyDerivationPrf Algorithm = KeyDerivationPrf.HMACSHA256;
@@ -26,19 +28,19 @@ namespace Shares.Core
             var iterationCount = configuration.GetInt(Constants.PasswordIterationCountKey);
             if (iterationCount < 1)
             {
-                throw new InvalidOperationException("Password iteration count cannot be less than 1.");
+                throw new InvalidIterationCountException();
             }
 
             var keySize = configuration.GetInt(Constants.PasswordKeySizeKey);
             if (keySize % 8 != 0 || keySize / 8 < 1)
             {
-                throw new InvalidOperationException("Password key size must be divisible by, and greater than 8.");
+                throw new InvalidKeySizeException();
             }
 
             var saltSize = configuration.GetInt(Constants.PasswordSaltSizeKey);
             if (saltSize % 8 != 0 || saltSize / 8 < 1)
             {
-                throw new InvalidOperationException("Password salt size must be divisible by, and greater than 8.");
+                throw new InvalidSaltSizeException();
             }
             
             _rng = new RNGCryptoServiceProvider();

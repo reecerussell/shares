@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using Shares.Core.Password;
 
 namespace Shares.Core
 {

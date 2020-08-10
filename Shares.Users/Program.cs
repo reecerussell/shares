@@ -43,7 +43,6 @@ namespace Shares.Users
             .ConfigureCache()
             .ConfigureLogging()
             .RegisterCoreServices()
-            .AddScoped<IPasswordService, PasswordService>()
             .AddScoped<UserContext>()
             .AddScoped<UserRepository>()
             .AddScoped<IUserService, UserService>()
