@@ -127,6 +127,65 @@ namespace Shares.Core.Tests.Password
             Assert.Throws<ArgumentNullException>(() => service.Verify("TestPassword", hash));
         }
 
+        [Fact]
+        public void TestVerifyWithInvalidFormatMarker()
+        {
+            const string testPassword = "TestPassword";
+            var config = BuildValidConfiguration();
+            var service = new PasswordService(config);
+            var hash = Convert.FromBase64String(service.Hash(testPassword));
+            
+            hash[0] = 0x02; // change format marker
+
+            var ok = service.Verify(testPassword, Convert.ToBase64String(hash));
+            Assert.False(ok);
+        }
+
+        [Fact]
+        public void TestVerifyWithInvalidSaltSize()
+        {
+            const string testPassword = "TestPassword";
+            var config = BuildValidConfiguration();
+            var service = new PasswordService(config);
+            var hash = Convert.FromBase64String(service.Hash(testPassword));
+
+            // Change salt size to be smaller than password service's salt size.
+            var masterSaltSize = int.Parse(config[Constants.PasswordSaltSizeKey]);
+            var newSaltSize = masterSaltSize - 1;
+            hash[9] = (byte) (newSaltSize >> 24);
+            hash[10] = (byte)(newSaltSize >> 16);
+            hash[11] = (byte)(newSaltSize >> 8);
+            hash[12] = (byte)(newSaltSize >> 0);
+
+            var ok = service.Verify(testPassword, Convert.ToBase64String(hash));
+            Assert.False(ok);
+        }
+
+        [Theory]
+        [InlineData("AQAAAAAAAAXcAAAAEPf5Otm47kJ/2TISVxfdfLRD9makOnv9qFBaCixu3lPN3j2mEGk8OLNgzr1m6z+dSA==")] // HMACSHA1
+        [InlineData("AQAAAAIAAAXcAAAAEPf5Otm47kJ/2TISVxfdfLRD9makOnv9qFBaCixu3lPN3j2mEGk8OLNgzr1m6z+dSA==")] // HMACSHA512
+        public void TestVerifyWithMismatchHashAlgorithm(string invalidHash)
+        {
+            var config = BuildValidConfiguration();
+            var service = new PasswordService(config);
+
+            const string testPassword = "TestPassword";
+            var ok = service.Verify(testPassword, invalidHash);
+            Assert.False(ok);
+        }
+
+        [Theory]
+        [InlineData("this is not base64")]
+        [InlineData("AQAAAAMAAAXcAAAAEPf5Otm47kJ/2TISVxfdfLRD9makOnv9qFBaCixu3lPN3j2mEGk8OLNgzr1m6z+dSA==")]
+        public void TestVerifyWithInvalidHash(string hash)
+        {
+            var config = BuildValidConfiguration();
+            var service = new PasswordService(config);
+
+            var ok = service.Verify("TestPassword", hash);
+            Assert.False(ok);
+        }
+
         private static IConfiguration BuildValidConfiguration()
         {
             var configProvider = new Mock<IConfiguration>();
