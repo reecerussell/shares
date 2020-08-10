@@ -1,7 +1,6 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
 using Shares.Auth.Domain.Dtos;
-using Shares.Auth.Infrastructure.Providers;
 using Shares.Auth.Infrastructure.Tokens;
 using Shares.Core;
 using System;
@@ -17,13 +16,13 @@ namespace Shares.Auth.Infrastructure.Services
 {
     internal class TokenService : ITokenService
     {
-        private readonly UserProvider _userProvider;
+        private readonly IUserProvider _userProvider;
         private readonly IPasswordService _passwordService;
         private readonly IAsymmetricHasher _hasher;
         private readonly ILogger<TokenService> _logger;
 
         public TokenService(
-            UserProvider userProvider,
+            IUserProvider userProvider,
             IPasswordService passwordService,
             IAsymmetricHasher hasher,
             ILogger<TokenService> logger)

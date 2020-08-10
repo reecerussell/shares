@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Shares.Auth.Infrastructure.Providers
 {
-    internal class UserProvider : ReadRepository<User>
+    internal class UserProvider : ReadRepository<User>, IUserProvider
     {
         private readonly INormalizer _normalizer;
 
@@ -19,7 +19,7 @@ namespace Shares.Auth.Infrastructure.Providers
             _normalizer = normalizer;
         }
 
-        internal async Task<Maybe<User>> FindByEmailAsync(string email)
+        public async Task<Maybe<User>> FindByEmailAsync(string email)
         {
             return await Set.SingleOrDefaultAsync(x => 
                 x.NormalizedEmail == _normalizer.Normalize(email));
