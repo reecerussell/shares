@@ -25,21 +25,21 @@ namespace Shares.Core.Services {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChlQcm90b3MvVG9rZW5TZXJ2aWNlLnByb3RvEhRTaGFyZXMuQ29yZS5TZXJ2",
-            "aWNlcyIxCg5Vc2VyQ3JlZGVudGlhbBINCgVlbWFpbBgBIAEoCRIQCghwYXNz",
-            "d29yZBgCIAEoCSItCgtBY2Nlc3NUb2tlbhINCgV0b2tlbhgBIAEoCRIPCgdF",
-            "eHBpcmVzGAIgASgCIlMKEEdldFRva2VuUmVzcG9uc2USMAoFdG9rZW4YASAB",
-            "KAsyIS5TaGFyZXMuQ29yZS5TZXJ2aWNlcy5BY2Nlc3NUb2tlbhINCgVlcnJv",
-            "chgCIAEoCSIjChJWZXJpZnlUb2tlblJlcXVlc3QSDQoFdG9rZW4YASABKAwi",
-            "MAoTVmVyaWZ5VG9rZW5SZXNwb25zZRIKCgJvaxgBIAEoCBINCgVlcnJvchgC",
-            "IAEoCTLGAQoMVG9rZW5TZXJ2aWNlElUKA0dldBIkLlNoYXJlcy5Db3JlLlNl",
-            "cnZpY2VzLlVzZXJDcmVkZW50aWFsGiYuU2hhcmVzLkNvcmUuU2VydmljZXMu",
-            "R2V0VG9rZW5SZXNwb25zZSIAEl8KBlZlcmlmeRIoLlNoYXJlcy5Db3JlLlNl",
-            "cnZpY2VzLlZlcmlmeVRva2VuUmVxdWVzdBopLlNoYXJlcy5Db3JlLlNlcnZp",
-            "Y2VzLlZlcmlmeVRva2VuUmVzcG9uc2UiAGIGcHJvdG8z"));
+            "aWNlcyIyCg9HZXRUb2tlblJlcXVlc3QSDQoFZW1haWwYASABKAkSEAoIcGFz",
+            "c3dvcmQYAiABKAkiLQoLQWNjZXNzVG9rZW4SDQoFdG9rZW4YASABKAkSDwoH",
+            "RXhwaXJlcxgCIAEoAiJTChBHZXRUb2tlblJlc3BvbnNlEjAKBXRva2VuGAEg",
+            "ASgLMiEuU2hhcmVzLkNvcmUuU2VydmljZXMuQWNjZXNzVG9rZW4SDQoFZXJy",
+            "b3IYAiABKAkiIwoSVmVyaWZ5VG9rZW5SZXF1ZXN0Eg0KBXRva2VuGAEgASgJ",
+            "IjAKE1ZlcmlmeVRva2VuUmVzcG9uc2USCgoCb2sYASABKAgSDQoFZXJyb3IY",
+            "AiABKAkyxwEKDFRva2VuU2VydmljZRJWCgNHZXQSJS5TaGFyZXMuQ29yZS5T",
+            "ZXJ2aWNlcy5HZXRUb2tlblJlcXVlc3QaJi5TaGFyZXMuQ29yZS5TZXJ2aWNl",
+            "cy5HZXRUb2tlblJlc3BvbnNlIgASXwoGVmVyaWZ5EiguU2hhcmVzLkNvcmUu",
+            "U2VydmljZXMuVmVyaWZ5VG9rZW5SZXF1ZXN0GikuU2hhcmVzLkNvcmUuU2Vy",
+            "dmljZXMuVmVyaWZ5VG9rZW5SZXNwb25zZSIAYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::Shares.Core.Services.UserCredential), global::Shares.Core.Services.UserCredential.Parser, new[]{ "Email", "Password" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Shares.Core.Services.GetTokenRequest), global::Shares.Core.Services.GetTokenRequest.Parser, new[]{ "Email", "Password" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Shares.Core.Services.AccessToken), global::Shares.Core.Services.AccessToken.Parser, new[]{ "Token", "Expires" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Shares.Core.Services.GetTokenResponse), global::Shares.Core.Services.GetTokenResponse.Parser, new[]{ "Token", "Error" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Shares.Core.Services.VerifyTokenRequest), global::Shares.Core.Services.VerifyTokenRequest.Parser, new[]{ "Token" }, null, null, null, null),
@@ -50,11 +50,11 @@ namespace Shares.Core.Services {
 
   }
   #region Messages
-  public sealed partial class UserCredential : pb::IMessage<UserCredential> {
-    private static readonly pb::MessageParser<UserCredential> _parser = new pb::MessageParser<UserCredential>(() => new UserCredential());
+  public sealed partial class GetTokenRequest : pb::IMessage<GetTokenRequest> {
+    private static readonly pb::MessageParser<GetTokenRequest> _parser = new pb::MessageParser<GetTokenRequest>(() => new GetTokenRequest());
     private pb::UnknownFieldSet _unknownFields;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public static pb::MessageParser<UserCredential> Parser { get { return _parser; } }
+    public static pb::MessageParser<GetTokenRequest> Parser { get { return _parser; } }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
@@ -67,22 +67,22 @@ namespace Shares.Core.Services {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public UserCredential() {
+    public GetTokenRequest() {
       OnConstruction();
     }
 
     partial void OnConstruction();
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public UserCredential(UserCredential other) : this() {
+    public GetTokenRequest(GetTokenRequest other) : this() {
       email_ = other.email_;
       password_ = other.password_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public UserCredential Clone() {
-      return new UserCredential(this);
+    public GetTokenRequest Clone() {
+      return new GetTokenRequest(this);
     }
 
     /// <summary>Field number for the "email" field.</summary>
@@ -109,11 +109,11 @@ namespace Shares.Core.Services {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
-      return Equals(other as UserCredential);
+      return Equals(other as GetTokenRequest);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Equals(UserCredential other) {
+    public bool Equals(GetTokenRequest other) {
       if (ReferenceEquals(other, null)) {
         return false;
       }
@@ -172,7 +172,7 @@ namespace Shares.Core.Services {
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void MergeFrom(UserCredential other) {
+    public void MergeFrom(GetTokenRequest other) {
       if (other == null) {
         return;
       }
@@ -563,9 +563,9 @@ namespace Shares.Core.Services {
 
     /// <summary>Field number for the "token" field.</summary>
     public const int TokenFieldNumber = 1;
-    private pb::ByteString token_ = pb::ByteString.Empty;
+    private string token_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public pb::ByteString Token {
+    public string Token {
       get { return token_; }
       set {
         token_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
@@ -608,7 +608,7 @@ namespace Shares.Core.Services {
     public void WriteTo(pb::CodedOutputStream output) {
       if (Token.Length != 0) {
         output.WriteRawTag(10);
-        output.WriteBytes(Token);
+        output.WriteString(Token);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -619,7 +619,7 @@ namespace Shares.Core.Services {
     public int CalculateSize() {
       int size = 0;
       if (Token.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeBytesSize(Token);
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Token);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -647,7 +647,7 @@ namespace Shares.Core.Services {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            Token = input.ReadBytes();
+            Token = input.ReadString();
             break;
           }
         }

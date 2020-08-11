@@ -12,16 +12,16 @@ namespace Shares.Core.Services {
   {
     static readonly string __ServiceName = "Shares.Core.Services.TokenService";
 
-    static readonly grpc::Marshaller<global::Shares.Core.Services.UserCredential> __Marshaller_Shares_Core_Services_UserCredential = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.UserCredential.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Shares.Core.Services.GetTokenRequest> __Marshaller_Shares_Core_Services_GetTokenRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.GetTokenRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Shares.Core.Services.GetTokenResponse> __Marshaller_Shares_Core_Services_GetTokenResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.GetTokenResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Shares.Core.Services.VerifyTokenRequest> __Marshaller_Shares_Core_Services_VerifyTokenRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.VerifyTokenRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Shares.Core.Services.VerifyTokenResponse> __Marshaller_Shares_Core_Services_VerifyTokenResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.VerifyTokenResponse.Parser.ParseFrom);
 
-    static readonly grpc::Method<global::Shares.Core.Services.UserCredential, global::Shares.Core.Services.GetTokenResponse> __Method_Get = new grpc::Method<global::Shares.Core.Services.UserCredential, global::Shares.Core.Services.GetTokenResponse>(
+    static readonly grpc::Method<global::Shares.Core.Services.GetTokenRequest, global::Shares.Core.Services.GetTokenResponse> __Method_Get = new grpc::Method<global::Shares.Core.Services.GetTokenRequest, global::Shares.Core.Services.GetTokenResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
         "Get",
-        __Marshaller_Shares_Core_Services_UserCredential,
+        __Marshaller_Shares_Core_Services_GetTokenRequest,
         __Marshaller_Shares_Core_Services_GetTokenResponse);
 
     static readonly grpc::Method<global::Shares.Core.Services.VerifyTokenRequest, global::Shares.Core.Services.VerifyTokenResponse> __Method_Verify = new grpc::Method<global::Shares.Core.Services.VerifyTokenRequest, global::Shares.Core.Services.VerifyTokenResponse>(
@@ -41,7 +41,7 @@ namespace Shares.Core.Services {
     [grpc::BindServiceMethod(typeof(TokenService), "BindService")]
     public abstract partial class TokenServiceBase
     {
-      public virtual global::System.Threading.Tasks.Task<global::Shares.Core.Services.GetTokenResponse> Get(global::Shares.Core.Services.UserCredential request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::Shares.Core.Services.GetTokenResponse> Get(global::Shares.Core.Services.GetTokenRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -76,19 +76,19 @@ namespace Shares.Core.Services {
       {
       }
 
-      public virtual global::Shares.Core.Services.GetTokenResponse Get(global::Shares.Core.Services.UserCredential request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::Shares.Core.Services.GetTokenResponse Get(global::Shares.Core.Services.GetTokenRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return Get(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::Shares.Core.Services.GetTokenResponse Get(global::Shares.Core.Services.UserCredential request, grpc::CallOptions options)
+      public virtual global::Shares.Core.Services.GetTokenResponse Get(global::Shares.Core.Services.GetTokenRequest request, grpc::CallOptions options)
       {
         return CallInvoker.BlockingUnaryCall(__Method_Get, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::Shares.Core.Services.GetTokenResponse> GetAsync(global::Shares.Core.Services.UserCredential request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::Shares.Core.Services.GetTokenResponse> GetAsync(global::Shares.Core.Services.GetTokenRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return GetAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::Shares.Core.Services.GetTokenResponse> GetAsync(global::Shares.Core.Services.UserCredential request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::Shares.Core.Services.GetTokenResponse> GetAsync(global::Shares.Core.Services.GetTokenRequest request, grpc::CallOptions options)
       {
         return CallInvoker.AsyncUnaryCall(__Method_Get, null, options, request);
       }
@@ -130,7 +130,7 @@ namespace Shares.Core.Services {
     /// <param name="serviceImpl">An object implementing the server-side handling logic.</param>
     public static void BindService(grpc::ServiceBinderBase serviceBinder, TokenServiceBase serviceImpl)
     {
-      serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Shares.Core.Services.UserCredential, global::Shares.Core.Services.GetTokenResponse>(serviceImpl.Get));
+      serviceBinder.AddMethod(__Method_Get, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Shares.Core.Services.GetTokenRequest, global::Shares.Core.Services.GetTokenResponse>(serviceImpl.Get));
       serviceBinder.AddMethod(__Method_Verify, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Shares.Core.Services.VerifyTokenRequest, global::Shares.Core.Services.VerifyTokenResponse>(serviceImpl.Verify));
     }
 
