@@ -28,5 +28,5 @@ message VerifyTokenRequest {
 
 message VerifyTokenResponse {
 	bool ok = 1;
-	string error = 1;
+	string error = 2;
 }
