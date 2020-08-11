@@ -1,0 +1,32 @@
+﻿syntax = "proto3";
+
+package Shares.Core.Services;
+
+service TokenService {
+	rpc Get (UserCredential) returns (GetTokenResponse) {}
+	rpc Verify (VerifyTokenRequest) returns (VerifyTokenResponse) {}
+}
+
+message UserCredential {
+	string email = 1;
+	string password = 2;
+}
+
+message AccessToken {
+	string token = 1;
+	float Expires = 2;
+}
+
+message GetTokenResponse {
+	AccessToken token = 1;
+	string error = 2;
+}
+
+message VerifyTokenRequest {
+	bytes token = 1;
+}
+
+message VerifyTokenResponse {
+	bool ok = 1;
+	string error = 1;
+}
