@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Shares.AWS</RootNamespace>
+    <LangVersion>8</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AWS.Logger.AspNetCore" Version="2.2.0" />
+    <PackageReference Include="AWS.Logger.Core" Version="1.6.0" />
+    <PackageReference Include="AWSSDK.Extensions.NETCore.Setup" Version="3.3.101" />
+    <PackageReference Include="AWSSDK.KeyManagementService" Version="3.3.106.33" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shares.Core\Shares.Core.csproj" />
+  </ItemGroup>
+
+</Project>
