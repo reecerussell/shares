@@ -55,7 +55,7 @@ namespace Shares.Users.Providers
             if (!_cache.TryGetValue(Constants.ConnectionStringCacheKey, out string connectionString))
             {
                 _logger.LogDebug("Getting connection string...");
-                connectionString = await _connectionStringProvider.Get();
+                connectionString = await _connectionStringProvider.GetAsync();
                 var options = new MemoryCacheEntryOptions()
                     .SetSlidingExpiration(TimeSpan.FromMinutes(5));
                 _cache.Set(Constants.ConnectionStringCacheKey, connectionString, options);

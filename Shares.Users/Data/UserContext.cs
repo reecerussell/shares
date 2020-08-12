@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shares.Core;
 using Shares.Users.Data.Configurations;
-using System.Threading.Tasks;
 
 namespace Shares.Users.Data
 {
@@ -23,11 +22,7 @@ namespace Shares.Users.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            Task.Run(async () =>
-            {
-                var connectionString = await _provider.Get();
-                optionsBuilder.UseMySQL(connectionString);
-            }).Wait();
+            optionsBuilder.UseMySQL(_provider.Get());
 
             base.OnConfiguring(optionsBuilder);
         }
