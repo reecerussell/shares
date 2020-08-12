@@ -14,5 +14,7 @@
         public const string PasswordRequiredUniqueCharsKey = "Password:Validation:RequiredUniqueChars";
 
         public const string ConnectionStringCacheKey = "Cache:ConnectionString";
+
+        public const string HasherKeyIdKey = "Hasher:KeyId";
     }
 }
