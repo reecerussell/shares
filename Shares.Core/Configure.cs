@@ -9,8 +9,9 @@ namespace Shares.Core
         {
             return services
                 .AddTransient<INormalizer, Normalizer>()
-                .AddScoped<IConnectionStringProvider, ConnectionStringProvider>()
-                .AddScoped<IPasswordService, PasswordService>();
+                .AddTransient<IConnectionStringProvider, ConnectionStringProvider>()
+                .AddTransient<IPasswordService, PasswordService>()
+                .AddTransient<IPasswordValidator, PasswordValidator>();
         }
     }
 }
