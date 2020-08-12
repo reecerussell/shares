@@ -5,6 +5,17 @@ networks:
         driver: bridge
 
 services:
+    auth:
+        build:
+            context: .
+            dockerfile: ./Auth/API/Dockerfile
+        ports:
+            - "5500:5500"
+        environment:
+            - "PORT=5500"
+        networks:
+            - shares
+
     users:
         build:
             context: .
@@ -23,6 +34,7 @@ services:
         ports:
             - "5502:80"
         depends_on:
+            - auth
             - users
         networks:
             - shares
