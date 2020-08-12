@@ -48,6 +48,20 @@ namespace Shares.Web.Controllers
             };
         }
 
+        protected virtual IActionResult HandleInternalServerError(string message)
+        {
+            var data = new ErrorResponse
+            {
+                Message = message,
+                StatusCode = (int)HttpStatusCode.InternalServerError
+            };
+
+            return new ObjectResult(data)
+            {
+                StatusCode = (int)HttpStatusCode.InternalServerError,
+            };
+        }
+
         public class SuccessfulResponse<T>
         {
             public T Data { get; set; }
