@@ -6,6 +6,7 @@ using Shares.Core;
 using Shares.Core.Extensions;
 using Shares.Core.Services;
 using System;
+using Shares.AWS;
 
 namespace API
 {
@@ -41,6 +42,7 @@ namespace API
             .ConfigureCache()
             .ConfigureLogging()
             .RegisterCoreServices()
+            .ConfigureAws()
             .ConfigureInfrastructure()
             .AddScoped<TokenHandler>()
             .BuildServiceProvider();

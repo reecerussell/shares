@@ -1,8 +1,8 @@
 ﻿using CSharpFunctionalExtensions;
 using Microsoft.Extensions.Logging;
-using Shares.Auth.Domain.Dtos;
 using Shares.Auth.Infrastructure.Tokens;
 using Shares.Core;
+using Shares.Core.Dtos;
 using System;
 using System.Buffers.Text;
 using System.Collections.Generic;
@@ -33,7 +33,7 @@ namespace Shares.Auth.Infrastructure.Services
             _logger = logger;
         }
 
-        public async Task<Result<AccessToken>> GenerateAsync(UserCredential credential)
+        public async Task<Result<AccessTokenDto>> GenerateAsync(UserCredentialDto credential)
         {
             _logger.LogDebug("GenerateToken called for user '{0}'.", credential.Email);
 
@@ -42,7 +42,7 @@ namespace Shares.Auth.Infrastructure.Services
             {
                 _logger.LogDebug("User with email '{0}' does not exist.", credential.Email);
 
-                return Result.Failure<AccessToken>(ErrorMessages.UserNotFound);
+                return Result.Failure<AccessTokenDto>(ErrorMessages.UserNotFound);
             }
 
             var user = userOrNothing.Value;
@@ -51,7 +51,7 @@ namespace Shares.Auth.Infrastructure.Services
             {
                 _logger.LogDebug("Given password did not match user's.");
 
-                return Result.Failure<AccessToken>(ErrorMessages.UserPasswordInvalid);
+                return Result.Failure<AccessTokenDto>(ErrorMessages.UserPasswordInvalid);
             }
 
             var claims = new Dictionary<string, object>
@@ -62,10 +62,10 @@ namespace Shares.Auth.Infrastructure.Services
             var (success, _, token, error) = await CreateTokenAsync(claims);
             if (!success)
             {
-                return Result.Failure<AccessToken>(error);
+                return Result.Failure<AccessTokenDto>(error);
             }
 
-            var accessToken = new AccessToken {Token = Encoding.UTF8.GetString(token)};
+            var accessToken = new AccessTokenDto { Token = Encoding.UTF8.GetString(token)};
 
             return accessToken;
         }

@@ -11,6 +11,8 @@ namespace Shares.Auth.Infrastructure.Configuration
         {
             base.Configure(builder);
 
+            builder.ToTable("users");
+
             builder
                 .Property(x => x.NormalizedEmail)
                 .HasColumnName("normalized_email");

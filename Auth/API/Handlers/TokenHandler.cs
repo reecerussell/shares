@@ -1,12 +1,11 @@
 ﻿using CSharpFunctionalExtensions;
 using Grpc.Core;
 using Microsoft.Extensions.Logging;
-using Shares.Auth.Domain.Dtos;
 using Shares.Auth.Infrastructure;
+using Shares.Core.Dtos;
 using Shares.Core.Services;
 using System;
 using System.Threading.Tasks;
-using AccessToken = Shares.Core.Services.AccessToken;
 
 namespace API.Handlers
 {
@@ -29,7 +28,7 @@ namespace API.Handlers
 
             try
             {
-                var credential = new UserCredential
+                var credential = new UserCredentialDto
                 {
                     Email = request.Email,
                     Password = request.Password

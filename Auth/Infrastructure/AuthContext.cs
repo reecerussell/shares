@@ -1,24 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Shares.Auth.Infrastructure.Configuration;
 using Shares.Core;
-using Shares.Core.Entity;
 
 namespace Shares.Auth.Infrastructure
 {
-    internal class AuthContext : BaseReadContext
+    public class AuthContext : DbContext
     {
-        private readonly IConnectionStringProvider _connectionStringProvider;
+        private readonly IConnectionStringProvider _provider;
 
-        public AuthContext(IConnectionStringProvider connectionStringProvider)
+        public AuthContext(IConnectionStringProvider provider)
         {
-            _connectionStringProvider = connectionStringProvider;
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            optionsBuilder.UseMySQL(_connectionStringProvider.Get());
-
-            base.OnConfiguring(optionsBuilder);
+            _provider = provider;
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -26,6 +18,14 @@ namespace Shares.Auth.Infrastructure
             modelBuilder.ApplyConfiguration(new UserConfiguration());
 
             base.OnModelCreating(modelBuilder);
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+            optionsBuilder.UseMySQL(_provider.Get());
+
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }
