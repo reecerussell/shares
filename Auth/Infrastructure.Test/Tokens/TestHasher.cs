@@ -63,10 +63,5 @@ SkqQDlfc+ppWv1RAiFj18rG9+Gel0+CJl2LqHdZu4rg6tc3nvQ/oRQ==";
 
             return Result.Failure("VerifyAsync: false");
         }
-
-        public async Task<int> GetPublicKeySizeAsync()
-        {
-            return _rsa.KeySize;
-        }
     }
 }

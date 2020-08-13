@@ -6,7 +6,6 @@ using Microsoft.Extensions.Logging;
 using Shares.Core;
 using System;
 using System.IO;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace Shares.AWS
@@ -87,21 +86,6 @@ namespace Shares.AWS
 
                 return Result.Failure<byte[]>(e.Message);
             }
-        }
-
-        public async Task<int> GetPublicKeySizeAsync()
-        {
-            var request = new GetPublicKeyRequest
-            {
-                KeyId = _keyId,
-            };
-
-            var response = await _service.GetPublicKeyAsync(request);
-            await using var keyStream = response.PublicKey;
-            using var key = RSA.Create();
-            key.ImportRSAPublicKey(keyStream.ToArray(), out _);
-            
-            return key.KeySize;
         }
     }
 }

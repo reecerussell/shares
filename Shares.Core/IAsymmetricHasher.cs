@@ -8,6 +8,5 @@ namespace Shares.Core
         string HashName { get; }
         Task<Result<byte[]>> SignAsync(byte[] hash);
         Task<Result> VerifyAsync(byte[] message, byte[] signature);
-        Task<int> GetPublicKeySizeAsync();
     }
 }
