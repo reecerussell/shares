@@ -3,11 +3,11 @@ using Microsoft.Extensions.Logging;
 using Shares.Auth.Infrastructure.Tokens;
 using Shares.Core;
 using Shares.Core.Dtos;
+using Shares.Core.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Shares.Core.Extensions;
 
 namespace Shares.Auth.Infrastructure.Services
 {
