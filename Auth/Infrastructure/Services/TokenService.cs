@@ -4,13 +4,10 @@ using Shares.Auth.Infrastructure.Tokens;
 using Shares.Core;
 using Shares.Core.Dtos;
 using System;
-using System.Buffers.Text;
 using System.Collections.Generic;
-using System.IO;
-using System.Security.Cryptography;
 using System.Text;
-using System.Text.Json;
 using System.Threading.Tasks;
+using Shares.Core.Extensions;
 
 namespace Shares.Auth.Infrastructure.Services
 {
@@ -58,95 +55,34 @@ namespace Shares.Auth.Infrastructure.Services
             {
                 {"user_id", user.Id },
             };
+            var now = DateTime.UtcNow;
+            var exp = now.AddHours(1);
+            var builder = new TokenBuilder(_hasher.HashName)
+                .AddClaims(claims)
+                .SetExpiry(exp)
+                .SetIssuedAt(now)
+                .SetNotBefore(now);
 
-            var (success, _, token, error) = await CreateTokenAsync(claims);
+            var (success, _, token, error) = await builder.BuildAsync(_hasher);
             if (!success)
             {
                 return Result.Failure<AccessTokenDto>(error);
             }
 
-            var accessToken = new AccessTokenDto { Token = Encoding.UTF8.GetString(token)};
+            var accessToken = new AccessTokenDto
+            {
+                Token = Encoding.UTF8.GetString(token),
+                Expires = (float)exp.Unix()
+            };
 
             return accessToken;
         }
 
-        private async Task<Result<byte[]>> CreateTokenAsync(IDictionary<string, object> claims)
-        {
-            var headerPayload = new TokenHeader("RSA256", "JWT");
-            var headerData = await SerializeAsync(headerPayload);
-            var header = new byte[Base64.GetMaxEncodedToUtf8Length(headerData.Length)];
-            Base64.EncodeToUtf8(headerData, header, out _, out _);
-            var payload = await SerializeAsync(claims);
-            var length = header.Length + 1 + Base64.GetMaxEncodedToUtf8Length(payload.Length);
-            var keySize = await _hasher.GetPublicKeySizeAsync();
-            var token = new byte[length + 1 + Base64.GetMaxEncodedToUtf8Length(keySize)];
-
-            Buffer.BlockCopy(header, 0, token, 0, header.Length);
-            var idx = header.Length;
-            token[idx] = (byte)'.';
-            idx++;
-            Encode(payload, token, idx);
-
-            var digest = SHA256.Create();
-            var digestSum = digest.ComputeHash(token, 0, length);
-            var (signSuccess, _, signature, signError) = await _hasher.SignAsync(digestSum);
-            if (!signSuccess)
-            {
-                return Result.Failure<byte[]>(signError);
-            }
-
-            idx = length;
-            token[idx] = (byte) '.';
-            Encode(signature, token, idx + 1);
-
-            return token;
-
-            static async Task<byte[]> SerializeAsync(object value)
-            {
-                await using var ms = new MemoryStream();
-                await JsonSerializer.SerializeAsync(ms, value);
-                return ms.ToArray();
-            }
-
-            static void Encode(byte[] buf, byte[] dst, int dstOffset)
-            {
-                var data = new byte[Base64.GetMaxEncodedToUtf8Length(buf.Length)];
-                Base64.EncodeToUtf8(buf, data, out _, out _);
-                Buffer.BlockCopy(data, 0, dst, dstOffset, data.Length);
-            }
-        }
-
         public async Task<Result> VerifyAsync(string tokenString)
         {
-            //var rawToken = Encoding.UTF8.GetBytes(tokenString);
-            //var token = new Token(rawToken);
-
-            //// TODO: error handling
-            //var (data, signature) = token.Scan();
-            //var algorithm = HashAlgorithm.Create(_hasher.HashName);
-            //if (algorithm == null)
-            //{
-            //    throw new InvalidOperationException($"No hash algorithm was found with name '{_hasher.HashName}'.");
-            //}
-
-            //var digest = algorithm.ComputeHash(data);
-            //var (success, _, error) = await _hasher.VerifyAsync(digest, signature);
-            //if (!success)
-            //{
-            //    return Result.Failure(error);
-            //}
-
-            //if (!token.IsTimeValid())
-            //{
-            //    return Result.Failure("Token is not yet valid.");
-            //}
-
-            //if (token.HasExpired())
-            //{
-            //    return Result.Failure("Token has expired.");
-            //}
-
-            return Result.Success();
+            var token = new Token(Convert.FromBase64String(tokenString));
+            
+            return await token.VerifyAsync(_hasher);
         }
     }
 }
