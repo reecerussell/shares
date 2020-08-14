@@ -1,4 +1,6 @@
-﻿namespace Shares.Core.Entity
+﻿using System;
+
+namespace Shares.Core.Entity
 {
     public abstract class Aggregate
     {
