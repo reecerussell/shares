@@ -1,10 +1,11 @@
-﻿using System;
-using Grpc.Core;
+﻿using Grpc.Core;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Shares.Core;
 using Shares.Core.Dtos;
 using Shares.Core.Services;
+using Shares.Web.Auth;
+using System;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace Shares.Web.Controllers
 {
     [Route("api/users")]
+    [ValidateToken]
     public class UsersController : BaseController
     {
         private readonly UserService.UserServiceClient _client;

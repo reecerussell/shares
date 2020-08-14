@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shares.Core.Extensions;
+using Shares.Web.Auth;
+using Shares.Web.Services;
 
 namespace Shares.Web
 {
@@ -11,6 +14,10 @@ namespace Shares.Web
         {
             services.AddControllers();
             services.AddSwaggerGen();
+
+            services.ConfigureCache();
+            services.AddSingleton<ITokenValidationService, TokenValidationService>();
+            services.AddSingleton<AuthorizationFilter>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
