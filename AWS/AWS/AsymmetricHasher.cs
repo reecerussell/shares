@@ -6,8 +6,10 @@ using Microsoft.Extensions.Logging;
 using Shares.Core;
 using System;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
+[assembly: InternalsVisibleTo("AWS.Test")]
 namespace Shares.AWS
 {
     internal class AsymmetricHasher : IAsymmetricHasher
