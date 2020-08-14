@@ -6,7 +6,7 @@ namespace Shares.Core
     public interface IAsymmetricHasher
     {
         string HashName { get; }
-        Task<Result<byte[]>> SignAsync(byte[] hash);
-        Task<Result> VerifyAsync(byte[] message, byte[] signature);
+        Task<Result<byte[]>> SignAsync(byte[] digest);
+        Task<Result> VerifyAsync(byte[] digest, byte[] signature);
     }
 }
