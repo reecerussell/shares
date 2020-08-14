@@ -55,7 +55,7 @@ SkqQDlfc+ppWv1RAiFj18rG9+Gel0+CJl2LqHdZu4rg6tc3nvQ/oRQ==";
 
         public async Task<Result> VerifyAsync(byte[] message, byte[] signature)
         {
-            var ok = _rsa.VerifyData(message, signature, _hashAlgorithm, RSASignaturePadding.Pkcs1);
+            var ok = _rsa.VerifyHash(message, signature, _hashAlgorithm, RSASignaturePadding.Pkcs1);
             if (ok)
             {
                 return Result.Success();

@@ -32,12 +32,12 @@ namespace Shares.AWS
         }
 
         public string HashName => "RSA256";
-        public async Task<Result<byte[]>> SignAsync(byte[] hash)
+        public async Task<Result<byte[]>> SignAsync(byte[] digest)
         {
             var request = new SignRequest
             {
                 KeyId = _keyId,
-                Message = new MemoryStream(hash),
+                Message = new MemoryStream(digest),
                 MessageType = MessageType.DIGEST,
                 SigningAlgorithm = SigningAlgorithmSpec.RSASSA_PKCS1_V1_5_SHA_256
             };
@@ -55,12 +55,12 @@ namespace Shares.AWS
             }
         }
 
-        public async Task<Result> VerifyAsync(byte[] message, byte[] signature)
+        public async Task<Result> VerifyAsync(byte[] digest, byte[] signature)
         {
             var request = new VerifyRequest
             {
                 KeyId = _keyId,
-                Message = new MemoryStream(message),
+                Message = new MemoryStream(digest),
                 MessageType = MessageType.DIGEST,
                 Signature = new MemoryStream(signature),
                 SigningAlgorithm = SigningAlgorithmSpec.RSASSA_PKCS1_V1_5_SHA_256
@@ -79,6 +79,12 @@ namespace Shares.AWS
             catch (KMSInvalidSignatureException)
             {
                 return Result.Failure("Invalid signature.");
+            }
+            catch (KMSInternalException e)
+            {
+                _logger.LogError(e, "An internal error occured with AWS KMS: {0}", e.Message);
+
+                return Result.Failure("An internal error occured while verify the hash.");
             }
             catch (Exception e)
             {
