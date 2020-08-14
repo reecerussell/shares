@@ -80,7 +80,7 @@ namespace Shares.Auth.Infrastructure.Services
 
         public async Task<Result> VerifyAsync(string tokenString)
         {
-            var token = new Token(Convert.FromBase64String(tokenString));
+            var token = new Token(Encoding.UTF8.GetBytes(tokenString));
             
             return await token.VerifyAsync(_hasher);
         }
