@@ -82,9 +82,8 @@ namespace Shares.Auth.Infrastructure.Tokens
             data[header.Length] = (byte) '.';
             Buffer.BlockCopy(payload, 0, data, header.Length + 1, payload.Length);
 
-            var alg = SHA256.Create();
+            using var alg = SHA256.Create();
             var digest = alg.ComputeHash(data);
-
             var result = await hasher.SignAsync(digest);
             if (result.IsFailure)
             {

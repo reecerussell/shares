@@ -6,6 +6,7 @@ using System;
 using System.Buffers;
 using System.Buffers.Text;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -85,7 +86,9 @@ namespace Shares.Auth.Infrastructure.Tokens
                 return Result.Failure(error);
             }
 
-            var result = await hasher.VerifyAsync(data, signature);
+            using var alg = SHA256.Create();
+            var digest = alg.ComputeHash(data);
+            var result = await hasher.VerifyAsync(digest, signature);
             if (result.IsFailure)
             {
                 return result;
