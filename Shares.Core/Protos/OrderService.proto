@@ -1,0 +1,19 @@
+﻿syntax = "proto3";
+
+package Shares.Core.Services;
+
+service OrderService {
+	rpc Create (CreateOrderRequest) returns (CreateOrderResponse) {}
+}
+
+message CreateOrderRequest {
+	string userId = 1;
+	string instrumentId = 2;
+	float quantity = 3;
+	float price = 4;
+}
+
+message CreateOrderResponse {
+	string id = 1;
+	string error = 2;
+}

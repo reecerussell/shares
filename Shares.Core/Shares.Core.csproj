@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <Protobuf Include="**/*.proto" OutputDir="%(RelativeDir)" CompileOutputs="false" GrpcServices="Both" />
+    <None Remove="Protos\OrderService.proto" />
     <None Remove="Protos\TokenService.proto" />
     <Protobuf Update="*.proto" GrpcServices="Both" />
   </ItemGroup>
