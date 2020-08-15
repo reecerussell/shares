@@ -3,7 +3,6 @@ using Shares.Core;
 using Shares.Core.Dtos;
 using Shares.Orders.Domain.Models;
 using Shares.Orders.Infrastructure.Repositories;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Shares.Orders.Infrastructure.Services
