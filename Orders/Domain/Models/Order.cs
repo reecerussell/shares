@@ -29,6 +29,7 @@ namespace Shares.Orders.Domain.Models
                 throw new ArgumentNullException(nameof(userId));
             }
 
+            Id = Guid.NewGuid().ToString();
             InstrumentId = instrumentId;
             UserId = userId;
             SellOrders = new List<SellOrder>();

@@ -4,6 +4,6 @@ namespace Shares.Core.Entity
 {
     public abstract class Aggregate
     {
-        public string Id { get; private set; }
+        public string Id { get; protected set; }
     }
 }
