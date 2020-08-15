@@ -7,5 +7,7 @@
 
         public const string DbConcurrencyError = "CONCURRENCY_ERROR";
         public const string DbUpdateError = "UPDATE_ERROR";
+
+        public const string OrderNotFound = "ORDER_NOT_FOUND";
     }
 }

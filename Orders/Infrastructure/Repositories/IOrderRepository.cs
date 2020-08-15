@@ -8,6 +8,7 @@ namespace Shares.Orders.Infrastructure.Repositories
     {
         Task<Maybe<Order>> FindByIdAsync(string id);
         void Add(Order order);
+        void Remove(Order order);
         Task<Result> SaveChangesAsync();
     }
 }
