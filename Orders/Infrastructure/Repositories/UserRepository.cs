@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Shares.Orders.Infrastructure.Repositories
 {
-    internal class InstrumentReadRepository : ReadRepository<Instrument>, IInstrumentReadRepository
+    internal class UserRepository : ReadRepository<User>, IUserRepository
     {
-        public InstrumentReadRepository(OrdersReadContext context) 
+        public UserRepository(OrdersReadContext context) 
             : base(context)
         {
         }
