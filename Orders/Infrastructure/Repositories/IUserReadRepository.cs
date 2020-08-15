@@ -2,7 +2,7 @@
 
 namespace Shares.Orders.Infrastructure.Repositories
 {
-    public interface IUserRepository
+    public interface IUserReadRepository
     {
         Task<bool> ExistsAsync(string id);
     }
