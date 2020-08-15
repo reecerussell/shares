@@ -31,14 +31,17 @@ namespace Shares.Orders.Domain.Models
 
             InstrumentId = instrumentId;
             UserId = userId;
+            SellOrders = new List<SellOrder>();
         }
 
         private List<SellOrder> _sellOrders;
 
         public IReadOnlyList<SellOrder> SellOrders
         {
-            get => _lazyLoader.Load(this, ref _sellOrders);
-            set => _sellOrders = (List<SellOrder>) value;
+            get => _lazyLoader == null ? 
+                _sellOrders : 
+                _lazyLoader.Load(this, ref _sellOrders);
+            internal set => _sellOrders = (List<SellOrder>) value;
         }
 
         private readonly ILazyLoader _lazyLoader;
