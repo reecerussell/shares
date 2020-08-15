@@ -21,7 +21,7 @@ namespace Shares.Core.Entity
             _logger = logger;
         }
 
-        public async Task<Maybe<T>> FindByIdAsync(string id)
+        public virtual async Task<Maybe<T>> FindByIdAsync(string id)
         {
             return await Set.FindAsync(id);
         }
