@@ -1,7 +1,10 @@
 ﻿using CSharpFunctionalExtensions;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Shares.Core.Dtos;
 using Shares.Core.Entity;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Domain.Test")]
@@ -30,8 +33,19 @@ namespace Shares.Orders.Domain.Models
             UserId = userId;
         }
 
-        private Order()
+        private List<SellOrder> _sellOrders;
+
+        public IReadOnlyList<SellOrder> SellOrders
         {
+            get => _lazyLoader.Load(this, ref _sellOrders);
+            set => _sellOrders = (List<SellOrder>) value;
+        }
+
+        private readonly ILazyLoader _lazyLoader;
+
+        private Order(ILazyLoader lazyLoader)
+        {
+            _lazyLoader = lazyLoader;
         }
 
         internal Result UpdateQuantity(double quantity)
@@ -64,6 +78,24 @@ namespace Shares.Orders.Domain.Models
             return order.UpdateQuantity(dto.Quantity)
                 .Bind(() => order.UpdatePrice(dto.Price))
                 .Map(() => order);
+        }
+
+        public Result<SellOrder> CreateSellOrder(CreateSellOrderDto dto)
+        {
+            var quantitySold = SellOrders.Sum(x => x.Quantity);
+            var availableToSell = Quantity - quantitySold;
+            if (availableToSell <= 0)
+            {
+                return Result.Failure<SellOrder>("All shares from this order have already been sold.");
+            }
+
+            if (availableToSell - dto.Quantity < 0)
+            {
+                return Result.Failure<SellOrder>($"There are only {availableToSell} shares available to sell.");
+            }
+
+            return SellOrder.Create(dto)
+                .Tap(_sellOrders.Add);
         }
     }
 }
