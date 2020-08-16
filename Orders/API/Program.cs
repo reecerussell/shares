@@ -40,7 +40,6 @@ namespace Shares.Orders.API
         private static IServiceProvider RegisterServices() => new ServiceCollection()
             .ConfigureConfig()
             .ConfigureCache()
-            .ConfigureLogging()
             .RegisterCoreServices()
             .ConfigureAws()
             .ConfigureInfrastructure()
