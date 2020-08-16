@@ -49,5 +49,54 @@ namespace Shares.Orders.API.Handlers
                 return new CreateOrderResponse{Error = e.Message};
             }
         }
+
+        public override async Task<DeleteOrderResponse> Delete(DeleteOrderRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation("Received incoming RPC to OrderService.Delete for order '{0}'", request.Id);
+
+            try
+            {
+                var (success, _, error) = await _service.DeleteAsync(request.Id);
+                if (!success)
+                {
+                    return new DeleteOrderResponse { Error = error };
+                }
+
+                return new DeleteOrderResponse();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return new DeleteOrderResponse { Error = e.Message };
+            }
+        }
+
+        public override async Task<SellOrderResponse> Sell(SellOrderRequest request, ServerCallContext context)
+        {
+            _logger.LogInformation("Received incoming RPC to OrderService.Sell for order '{0}'", request.OrderId);
+
+            try
+            {
+                var dto = new CreateSellOrderDto
+                {
+                    UserId = request.UserId,
+                    OrderId = request.OrderId,
+                    Price = request.Price,
+                    Quantity = request.Quantity
+                };
+                var (success, _, id, error) = await _service.SellAsync(dto);
+                if (!success)
+                {
+                    return new SellOrderResponse { Error = error };
+                }
+
+                return new SellOrderResponse { Id = id };
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+                return new SellOrderResponse { Error = e.Message };
+            }
+        }
     }
 }

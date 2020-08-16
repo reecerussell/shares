@@ -31,8 +31,8 @@ message DeleteOrderResponse {
 message SellOrderRequest {
 	string userId = 1;
 	string orderId = 2;
-	string quantity = 3;
-	string price = 4;
+	float quantity = 3;
+	float price = 4;
 }
 
 message SellOrderResponse {

@@ -73,8 +73,6 @@ namespace Shares.Web.Controllers
                 Email = x.Email
             }).ToList();
 
-            Console.WriteLine("[DONE]: {0} Users", users.Count);
-
             return HandleOk(users);
         }
 

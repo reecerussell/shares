@@ -31,7 +31,7 @@ namespace Shares.Core.Services {
             "BWVycm9yGAIgASgJIiAKEkRlbGV0ZU9yZGVyUmVxdWVzdBIKCgJpZBgBIAEo",
             "CSIkChNEZWxldGVPcmRlclJlc3BvbnNlEg0KBWVycm9yGAEgASgJIlQKEFNl",
             "bGxPcmRlclJlcXVlc3QSDgoGdXNlcklkGAEgASgJEg8KB29yZGVySWQYAiAB",
-            "KAkSEAoIcXVhbnRpdHkYAyABKAkSDQoFcHJpY2UYBCABKAkiLgoRU2VsbE9y",
+            "KAkSEAoIcXVhbnRpdHkYAyABKAISDQoFcHJpY2UYBCABKAIiLgoRU2VsbE9y",
             "ZGVyUmVzcG9uc2USCgoCaWQYASABKAkSDQoFZXJyb3IYAiABKAkyqwIKDE9y",
             "ZGVyU2VydmljZRJfCgZDcmVhdGUSKC5TaGFyZXMuQ29yZS5TZXJ2aWNlcy5D",
             "cmVhdGVPcmRlclJlcXVlc3QaKS5TaGFyZXMuQ29yZS5TZXJ2aWNlcy5DcmVh",
@@ -744,23 +744,23 @@ namespace Shares.Core.Services {
 
     /// <summary>Field number for the "quantity" field.</summary>
     public const int QuantityFieldNumber = 3;
-    private string quantity_ = "";
+    private float quantity_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Quantity {
+    public float Quantity {
       get { return quantity_; }
       set {
-        quantity_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        quantity_ = value;
       }
     }
 
     /// <summary>Field number for the "price" field.</summary>
     public const int PriceFieldNumber = 4;
-    private string price_ = "";
+    private float price_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Price {
+    public float Price {
       get { return price_; }
       set {
-        price_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        price_ = value;
       }
     }
 
@@ -779,8 +779,8 @@ namespace Shares.Core.Services {
       }
       if (UserId != other.UserId) return false;
       if (OrderId != other.OrderId) return false;
-      if (Quantity != other.Quantity) return false;
-      if (Price != other.Price) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Quantity, other.Quantity)) return false;
+      if (!pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.Equals(Price, other.Price)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -789,8 +789,8 @@ namespace Shares.Core.Services {
       int hash = 1;
       if (UserId.Length != 0) hash ^= UserId.GetHashCode();
       if (OrderId.Length != 0) hash ^= OrderId.GetHashCode();
-      if (Quantity.Length != 0) hash ^= Quantity.GetHashCode();
-      if (Price.Length != 0) hash ^= Price.GetHashCode();
+      if (Quantity != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Quantity);
+      if (Price != 0F) hash ^= pbc::ProtobufEqualityComparers.BitwiseSingleEqualityComparer.GetHashCode(Price);
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -812,13 +812,13 @@ namespace Shares.Core.Services {
         output.WriteRawTag(18);
         output.WriteString(OrderId);
       }
-      if (Quantity.Length != 0) {
-        output.WriteRawTag(26);
-        output.WriteString(Quantity);
+      if (Quantity != 0F) {
+        output.WriteRawTag(29);
+        output.WriteFloat(Quantity);
       }
-      if (Price.Length != 0) {
-        output.WriteRawTag(34);
-        output.WriteString(Price);
+      if (Price != 0F) {
+        output.WriteRawTag(37);
+        output.WriteFloat(Price);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -834,11 +834,11 @@ namespace Shares.Core.Services {
       if (OrderId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(OrderId);
       }
-      if (Quantity.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Quantity);
+      if (Quantity != 0F) {
+        size += 1 + 4;
       }
-      if (Price.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Price);
+      if (Price != 0F) {
+        size += 1 + 4;
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -857,10 +857,10 @@ namespace Shares.Core.Services {
       if (other.OrderId.Length != 0) {
         OrderId = other.OrderId;
       }
-      if (other.Quantity.Length != 0) {
+      if (other.Quantity != 0F) {
         Quantity = other.Quantity;
       }
-      if (other.Price.Length != 0) {
+      if (other.Price != 0F) {
         Price = other.Price;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -882,12 +882,12 @@ namespace Shares.Core.Services {
             OrderId = input.ReadString();
             break;
           }
-          case 26: {
-            Quantity = input.ReadString();
+          case 29: {
+            Quantity = input.ReadFloat();
             break;
           }
-          case 34: {
-            Price = input.ReadString();
+          case 37: {
+            Price = input.ReadFloat();
             break;
           }
         }
