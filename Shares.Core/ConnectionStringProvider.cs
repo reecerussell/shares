@@ -19,7 +19,7 @@ namespace Shares.Core
 
         public async Task<string> GetAsync()
         {
-            return _configuration["ConnectionStrings:DefaultConnection"];
+            return await Task.Run(() => _configuration["ConnectionStrings:DefaultConnection"]);
         }
     }
 }
