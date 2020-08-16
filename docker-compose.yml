@@ -30,11 +30,11 @@ services:
     orders:
         build:
             context: .
-            dockerfile: ./Shares.Orders/Dockerfile
+            dockerfile: ./Orders/API/Dockerfile
         ports:
-            - "5502:5502"
+            - "5503:5503"
         environment:
-            - "PORT=5502"
+            - "PORT=5503"
         networks:
             - shares
 

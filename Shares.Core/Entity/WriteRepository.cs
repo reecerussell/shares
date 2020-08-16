@@ -52,7 +52,15 @@ namespace Shares.Core.Entity
             }
             catch (DbUpdateException e)
             {
-                _logger.LogError(e.Message, e);
+                var inner = e.InnerException;
+                if (inner != null)
+                {
+                    _logger.LogError(inner.Message, inner);
+                }
+                else
+                {
+                    _logger.LogError(e.Message, e);
+                }
 
                 return Result.Failure(ErrorMessages.DbUpdateError);
             }
