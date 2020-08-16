@@ -27,6 +27,17 @@ services:
         networks:
             - shares
 
+    orders:
+        build:
+            context: .
+            dockerfile: ./Shares.Orders/Dockerfile
+        ports:
+            - "5502:5502"
+        environment:
+            - "PORT=5502"
+        networks:
+            - shares
+
     api:
         build:
             context: .
