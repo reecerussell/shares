@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shares.Core.Extensions;
@@ -18,6 +19,8 @@ namespace Shares.Web
             services.ConfigureCache();
             services.AddSingleton<ITokenValidationService, TokenValidationService>();
             services.AddSingleton<AuthorizationFilter>();
+            services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IUser, AuthorizedUser>();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
