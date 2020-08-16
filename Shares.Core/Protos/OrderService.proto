@@ -4,6 +4,8 @@ package Shares.Core.Services;
 
 service OrderService {
 	rpc Create (CreateOrderRequest) returns (CreateOrderResponse) {}
+	rpc Delete (DeleteOrderRequest) returns (DeleteOrderResponse) {}
+	rpc Sell (SellOrderRequest) returns (SellOrderResponse) {}
 }
 
 message CreateOrderRequest {
@@ -14,6 +16,26 @@ message CreateOrderRequest {
 }
 
 message CreateOrderResponse {
+	string id = 1;
+	string error = 2;
+}
+
+message DeleteOrderRequest {
+	string id = 1;
+}
+
+message DeleteOrderResponse {
+	string error = 1;
+}
+
+message SellOrderRequest {
+	string userId = 1;
+	string orderId = 2;
+	string quantity = 3;
+	string price = 4;
+}
+
+message SellOrderResponse {
 	string id = 1;
 	string error = 2;
 }

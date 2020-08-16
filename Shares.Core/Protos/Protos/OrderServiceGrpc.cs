@@ -14,6 +14,10 @@ namespace Shares.Core.Services {
 
     static readonly grpc::Marshaller<global::Shares.Core.Services.CreateOrderRequest> __Marshaller_Shares_Core_Services_CreateOrderRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.CreateOrderRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::Shares.Core.Services.CreateOrderResponse> __Marshaller_Shares_Core_Services_CreateOrderResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.CreateOrderResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Shares.Core.Services.DeleteOrderRequest> __Marshaller_Shares_Core_Services_DeleteOrderRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.DeleteOrderRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Shares.Core.Services.DeleteOrderResponse> __Marshaller_Shares_Core_Services_DeleteOrderResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.DeleteOrderResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Shares.Core.Services.SellOrderRequest> __Marshaller_Shares_Core_Services_SellOrderRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.SellOrderRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::Shares.Core.Services.SellOrderResponse> __Marshaller_Shares_Core_Services_SellOrderResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::Shares.Core.Services.SellOrderResponse.Parser.ParseFrom);
 
     static readonly grpc::Method<global::Shares.Core.Services.CreateOrderRequest, global::Shares.Core.Services.CreateOrderResponse> __Method_Create = new grpc::Method<global::Shares.Core.Services.CreateOrderRequest, global::Shares.Core.Services.CreateOrderResponse>(
         grpc::MethodType.Unary,
@@ -21,6 +25,20 @@ namespace Shares.Core.Services {
         "Create",
         __Marshaller_Shares_Core_Services_CreateOrderRequest,
         __Marshaller_Shares_Core_Services_CreateOrderResponse);
+
+    static readonly grpc::Method<global::Shares.Core.Services.DeleteOrderRequest, global::Shares.Core.Services.DeleteOrderResponse> __Method_Delete = new grpc::Method<global::Shares.Core.Services.DeleteOrderRequest, global::Shares.Core.Services.DeleteOrderResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Delete",
+        __Marshaller_Shares_Core_Services_DeleteOrderRequest,
+        __Marshaller_Shares_Core_Services_DeleteOrderResponse);
+
+    static readonly grpc::Method<global::Shares.Core.Services.SellOrderRequest, global::Shares.Core.Services.SellOrderResponse> __Method_Sell = new grpc::Method<global::Shares.Core.Services.SellOrderRequest, global::Shares.Core.Services.SellOrderResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "Sell",
+        __Marshaller_Shares_Core_Services_SellOrderRequest,
+        __Marshaller_Shares_Core_Services_SellOrderResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -33,6 +51,16 @@ namespace Shares.Core.Services {
     public abstract partial class OrderServiceBase
     {
       public virtual global::System.Threading.Tasks.Task<global::Shares.Core.Services.CreateOrderResponse> Create(global::Shares.Core.Services.CreateOrderRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::Shares.Core.Services.DeleteOrderResponse> Delete(global::Shares.Core.Services.DeleteOrderRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::Shares.Core.Services.SellOrderResponse> Sell(global::Shares.Core.Services.SellOrderRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -78,6 +106,38 @@ namespace Shares.Core.Services {
       {
         return CallInvoker.AsyncUnaryCall(__Method_Create, null, options, request);
       }
+      public virtual global::Shares.Core.Services.DeleteOrderResponse Delete(global::Shares.Core.Services.DeleteOrderRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Delete(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Shares.Core.Services.DeleteOrderResponse Delete(global::Shares.Core.Services.DeleteOrderRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Delete, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Shares.Core.Services.DeleteOrderResponse> DeleteAsync(global::Shares.Core.Services.DeleteOrderRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return DeleteAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Shares.Core.Services.DeleteOrderResponse> DeleteAsync(global::Shares.Core.Services.DeleteOrderRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Delete, null, options, request);
+      }
+      public virtual global::Shares.Core.Services.SellOrderResponse Sell(global::Shares.Core.Services.SellOrderRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Sell(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::Shares.Core.Services.SellOrderResponse Sell(global::Shares.Core.Services.SellOrderRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Sell, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::Shares.Core.Services.SellOrderResponse> SellAsync(global::Shares.Core.Services.SellOrderRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return SellAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::Shares.Core.Services.SellOrderResponse> SellAsync(global::Shares.Core.Services.SellOrderRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Sell, null, options, request);
+      }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override OrderServiceClient NewInstance(ClientBaseConfiguration configuration)
       {
@@ -90,7 +150,9 @@ namespace Shares.Core.Services {
     public static grpc::ServerServiceDefinition BindService(OrderServiceBase serviceImpl)
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
-          .AddMethod(__Method_Create, serviceImpl.Create).Build();
+          .AddMethod(__Method_Create, serviceImpl.Create)
+          .AddMethod(__Method_Delete, serviceImpl.Delete)
+          .AddMethod(__Method_Sell, serviceImpl.Sell).Build();
     }
 
     /// <summary>Register service method with a service binder with or without implementation. Useful when customizing the  service binding logic.
@@ -100,6 +162,8 @@ namespace Shares.Core.Services {
     public static void BindService(grpc::ServiceBinderBase serviceBinder, OrderServiceBase serviceImpl)
     {
       serviceBinder.AddMethod(__Method_Create, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Shares.Core.Services.CreateOrderRequest, global::Shares.Core.Services.CreateOrderResponse>(serviceImpl.Create));
+      serviceBinder.AddMethod(__Method_Delete, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Shares.Core.Services.DeleteOrderRequest, global::Shares.Core.Services.DeleteOrderResponse>(serviceImpl.Delete));
+      serviceBinder.AddMethod(__Method_Sell, serviceImpl == null ? null : new grpc::UnaryServerMethod<global::Shares.Core.Services.SellOrderRequest, global::Shares.Core.Services.SellOrderResponse>(serviceImpl.Sell));
     }
 
   }
