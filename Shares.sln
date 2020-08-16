@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shares.Web", "Shares.Web\Shares.Web.csproj", "{D36E13AF-83F0-49ED-9DCD-001C8CE130E8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shares.Core", "Shares.Core\Shares.Core.csproj", "{7246E209-A046-45DC-A640-61E4D9B94A7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "Core\Core.csproj", "{7246E209-A046-45DC-A640-61E4D9B94A7E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shares.Users", "Shares.Users\Shares.Users.csproj", "{3FA40020-7488-4E69-A6D8-78424EC79AFE}"
 EndProject
@@ -35,7 +35,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Test", "Orders\Domai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Orders\Infrastructure\Infrastructure.csproj", "{33C11F47-2005-402A-9385-789698B6E757}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "API", "Orders\API\API.csproj", "{A6FC3CAF-6750-4053-9806-A675BDB2FB5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "Orders\API\API.csproj", "{A6FC3CAF-6750-4053-9806-A675BDB2FB5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
