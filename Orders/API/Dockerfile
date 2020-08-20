@@ -7,7 +7,7 @@ FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["Orders/API/API.csproj", "Orders/API/"]
 COPY ["Orders/Domain/Domain.csproj", "Orders/Domain/"]
-COPY ["Shares.Core/Shares.Core.csproj", "Shares.Core/"]
+COPY ["Core/Core.csproj", "Core/"]
 COPY ["Orders/Infrastructure/Infrastructure.csproj", "Orders/Infrastructure/"]
 COPY ["AWS/AWS/AWS.csproj", "AWS/AWS/"]
 RUN dotnet restore "Orders/API/API.csproj"

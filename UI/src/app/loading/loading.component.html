@@ -1,0 +1,11 @@
+<ng-template [ngIf]="loadable.loading">
+  This is a loading spinner...
+</ng-template>
+
+<ng-template [ngIf]="loadable.error">
+  {{ loadable?.error?.message || "Something went wrong" }}
+</ng-template>
+
+<ng-template [ngIf]="loadable.success">
+  <ng-content></ng-content>
+</ng-template>

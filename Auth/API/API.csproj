@@ -24,7 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\AWS\AWS\AWS.csproj" />
-    <ProjectReference Include="..\..\Shares.Core\Core.csproj" />
+    <ProjectReference Include="..\..\Core\Core.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>

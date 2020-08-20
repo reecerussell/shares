@@ -13,7 +13,14 @@ namespace Shares.Web
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Development", cors => cors
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .WithOrigins("http://localhost:4200"));
+            });
             services.AddSwaggerGen();
 
             services.ConfigureCache();
@@ -21,6 +28,8 @@ namespace Shares.Web
             services.AddSingleton<AuthorizationFilter>();
             services.AddScoped<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IUser, AuthorizedUser>();
+
+            services.AddControllers();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -34,6 +43,7 @@ namespace Shares.Web
             app.UseSwaggerUI(options => { options.SwaggerEndpoint("/swagger/v1/swagger.json", "Shares API"); });
 
             app.UseRouting();
+            app.UseCors("Development");
             app.UseEndpoints(routes => routes.MapControllers());
         }
     }

@@ -1,0 +1,25 @@
+<div class="card">
+  <div class="card-header"><i class="fa fa-align-justify"></i> Users</div>
+  <div class="card-body">
+    <loading-container [loadable]="users$ | async">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Firstname</th>
+            <th>Lastname</th>
+            <th>Email</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of (users$ | async).users">
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <td><a routerLink="/users/{{ user.id }}">Edit</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </loading-container>
+  </div>
+</div>
